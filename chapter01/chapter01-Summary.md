@@ -323,3 +323,6 @@ array([ True,  True, False,  True, False, False])
 array([51, 55, 19])
 ```
 - `X > 15`의 결과는 bool 배열이 생성되어 출력
+
+## 1.6 matplotlib
+[1.6 matplotlib.ipynb](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter01/source-1-6-matplotlib.ipynb)
