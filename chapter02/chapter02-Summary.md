@@ -157,3 +157,66 @@ AND(1, 0) = 0, NAND(1, 0) = 1, OR(1, 0) = 1
 AND(0, 1) = 0, NAND(0, 1) = 1, OR(0, 1) = 1
 AND(1, 1) = 1, NAND(1, 1) = 0, OR(1, 1) = 1
 ```
+
+## 2.4 퍼셉트론의 한계
+### 2.4.1 도전! XOR 게이트
+- XOR 게이트는 **배타적 논리합**의 논리 회로
+- x1과 x2 중 한쪽이 1일 떄만 1 출력
+    |x1|x2|y|
+    |--|--|--|
+    |0|0|0|
+    |1|0|1|
+    |0|1|1|
+    |1|1|0|
+- 퍼셉트론으로 XOR 게이트 구현X
+- if) OR 게이트
+	- (b, w1, w2) = (-0.5, 1.0, 1.0)일 때,
+	  ![OR게이트 그래프](https://user-images.githubusercontent.com/61455647/113547707-60652900-9629-11eb-8f4d-2cbc87d44cf3.png)
+	- 그래프의 왼쪽은 0이 출력되고, 오른쪽은 1을 출력한다.
+	- ○일 때 0, △일 때 1을 출력
+	- -> 그래프의 직선은 네 점을 0과 1에 따라 분리
+- if) XOR 게이트
+    ![XOR게이트 선형 그래프](https://user-images.githubusercontent.com/61455647/113548364-5c85d680-962a-11eb-84a7-ac61c9ad0f12.png)
+	- XOR 게이트는 OR 게이트처럼 직선 하나로 ○와 △의 영역을 나눌 수 없음.
+### 2.4.2 선형과 비선형
+![XOR게이트 비선형 그래프](https://user-images.githubusercontent.com/61455647/113548715-fe0d2800-962a-11eb-9c79-720ac90dd336.png)
+- 퍼셉트론은 직선 하나로 나눈 영역만 표현할 수 있는 한계가 있음 -> XOR 게이트의 결과를 표현할 수 없음
+- 곡선 영역 = 비선형 영역, 직선 영역 = 선형 영역
+## 2.5 다층 퍼셉트론이 출동한다면
+- 퍼셉트론은 '층을 쌓아' **다층 퍼셉트론 multi-layer perceptron**으로 만들 수 있다.
+### 2.5.1 기존 게이트 조합하기
+- XOR 게이트는 AND, NAND, OR 게이트를 조합해 만들 수 있음.
+- AND, NAND, OR 게이트 기호
+  ![AND, NAND, OR 게이트 기호](https://user-images.githubusercontent.com/61455647/113549932-357cd400-962d-11eb-93ab-a46e8a34a3cf.png)
+- AND, NAND, OR 게이트를 조합해 구현한 XOR 게이트
+  ![AND, NAND, OR 게이트를 조합한 XOR 게이트](https://user-images.githubusercontent.com/61455647/113551209-3b73b480-962f-11eb-986c-52cdddcffd7c.png)
+    |x1|x2|s1|s2|y
+    |--|--|--|--|--|
+    |0|0|1|0|0|
+    |1|0|1|1|1|
+    |0|1|1|1|1|
+    |1|1|0|1|1|
+### 2.5.2 XOR 게이트 구현하기
+```
+**xorGate.py**
+def XOR(x1, x2):
+    s1 = NAND(x1, x2)
+    s2 = OR(x1, x2)
+    y = AND(s1, s2)
+    return y
+
+def printResult(x1, x2, y):
+    print("XOR("+str(x1)+", "+str(x2)+") = "+str(y))
+
+printResult(0, 0, XOR(0, 0))
+printResult(1, 0, XOR(1, 0))
+printResult(0, 1, XOR(0, 1))
+printResult(1, 1, XOR(1, 1))
+```
+```
+**RESULT**
+XOR(0, 0) = 0
+XOR(1, 0) = 1
+XOR(0, 1) = 1
+XOR(1, 1) = 0
+```
