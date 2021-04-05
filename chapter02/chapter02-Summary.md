@@ -197,7 +197,9 @@ AND(1, 1) = 1, NAND(1, 1) = 0, OR(1, 1) = 1
 ### 2.5.1 기존 게이트 조합하기
 - XOR 게이트는 AND, NAND, OR 게이트를 조합해 만들 수 있음.
 - AND, NAND, OR 게이트 기호
+
   ![AND, NAND, OR 게이트 기호](https://user-images.githubusercontent.com/61455647/113549932-357cd400-962d-11eb-93ab-a46e8a34a3cf.png)
+  
 - AND, NAND, OR 게이트를 조합해 구현한 XOR 게이트
   ![AND, NAND, OR 게이트를 조합한 XOR 게이트](https://user-images.githubusercontent.com/61455647/113551209-3b73b480-962f-11eb-986c-52cdddcffd7c.png)
     |x1|x2|s1|s2|y
