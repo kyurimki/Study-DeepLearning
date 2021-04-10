@@ -5,4 +5,4 @@ A Study Log of Deep Learning from Scratch(밑바닥부터 시작하는 딥러닝
 #
 ### [Chapter01. Hello, Python](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter01/chapter01-Summary.md) (2021.04.03-04)
 ### [Chapter02. Perceptron](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter02/chapter02-Summary.md) (2021.04.05)
-### [Chapter03. Neural Networks](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter03/chapter03-Summary.md) (2021.04.08-)
+### [Chapter03. Neural Networks](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter03/chapter03-Summary.md) (2021.04.08-10)
