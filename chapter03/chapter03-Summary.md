@@ -257,5 +257,64 @@ def softmax(a):
 	return y
 ```
 ### 3.5.2 소프트맥스 함수 구현 시 주의점
-- 소프트맥스 함수가 지수 함수이기 때문에 오버플로가 발생할 수 있음
-- -> 소프트맥스 함수를 개선해 구현해야 함
+- 소프트맥스 함수가 지수 함수이기 때문에 오버플로우가 발생할 수 있음 -> 소프트맥스 함수를 개선해 구현해야 함
+
+![개선한 소프트맥스 함수](https://user-images.githubusercontent.com/61455647/114268708-7f0a5c00-9a3d-11eb-916d-4bd4c5ccd45d.png)
+- 분자와 분모에 C를 곱한다 -> C를 exp()의 지수로 올려 +logC로 만든다 -> C' = logC로 치환한다.
+- => 소프트맥스의 지수 함수를 계산할 때 어떤 정수를 더하거나 빼도 결과는 바뀌지 않는다.
+- 오버플로우를 막기 위해 C'에 입력 신호의 최대값을 사용한다.
+```
+>>> a = np.array([1010, 1000, 990])
+>>> np.exp(a) / np.sum(np.exp(a))
+__main__:1: RuntimeWarning: overflow encountered in exp
+__main__:1: RuntimeWarning: invalid value encountered in true_divide
+array([nan, nan, nan])
+
+>>> c = np.max(a)
+>>> a - c
+array([  0, -10, -20])
+>>> np.exp(a-c) /np.sum(np.exp(a-c))
+array([9.99954600e-01, 4.53978686e-05, 2.06106005e-09])
+```
+- 예제를 바탕으로 소프트맥스 함수를 다시 구현하면 다음과 같다.
+```
+def softmax(a):
+    c = np.max(a)
+    
+    exp_a = np.exp(a-c)
+	sum_exp_a = np.sum(exp_a)
+	y = exp_a / sum_exp_a
+
+	return y
+```
+### 3.5.3. 소프트맥스 함수의 특징
+```
+>>> a = np.array([0.3, 2.9, 4.0])
+>>> y = softmax(a)
+>>> print(y)
+[0.01821127 0.24519181 0.73659691]
+>>> np.sum(y)
+1.0
+```
+- 소프트맥스 함수의 출력은 [0, 1.0] 사이의 실수
+- **소프트맥스 함수 출력의 총합 = 1** -> '확률'로 해석 가능
+- ex. P(y[0]) = 0.018, P(y[1]) = 0.245, P(y[2]) = 0.737로 나타낼 수 있다. -> 2번째 원소의 확률이 가장 높으니, 2번째 클래스다./ 74%의 확률로 2번째 클래스, 25% 확률로 첫번째 클래스, 1%의 확률로 0번째 클래스다.
+- 소프트맥스 함수를 이용해 문제를 확률적/통계적으로 대응할 수 있다.
+- 주의점) 소프트맥스 함수를 적용해도 각 원소의 대소 관계는 변하지 않는다. ∵ y = exp(x)가 단조증가함수
+- 신경망으로 분류할 떄 출력층의 소프트맥수 함수를 생략해도 된다.
+	- 근거1. 신경망을 이용한 분류에서 가장 큰 출력을 내는 뉴런의 클래스로만 인식
+	- 근거2. 소프트맥스 함수를 적용해도 출력이 가장 큰 뉴런의 위치는 변하지 않음.
+### 3.5.4 출력층의 뉴런 수 정하기
+- 출력층의 뉴런 수는 문제에 맞게 적절히 정해야 한다.
+- 분류에서는 분류하고 싶은 클래스 수로 설정이 일반적임.
+- ex. 입력 이미지를 0-9 중 하나로 분류하는 문제: 출력층 뉴런 = 10개
+
+![출력층의 뉴런은 각 숫자에 대응](https://user-images.githubusercontent.com/61455647/114269528-9d268b00-9a42-11eb-9735-22f356ffdeea.png)
+
+- 뉴런의 회색 농도가 해당 뉴런의 출력 값의 크기 의미
+- 예시에서는 색이 가장 짙은 y2 뉴런이 가장 큰 값으로 판단되었음 -> 입력 이미지를 숫자 2로 판단했음을 의미
+# 3.6 손글씨 숫자 인식
+**신경망의 순전파(Forward Propagation):**
+>As the name suggests, the input data is fed in the forward direction through the network. Each hidden layer accepts the input data, processes it as per the activation function and passes to the successive layer. [source link](https://towardsdatascience.com/forward-propagation-in-neural-networks-simplified-math-and-code-version-bbcfef6f9250)
+### 3.6.1 MNIST 데이터셋-3.6.3 배치 처리
+[3.6.1 MNIST 데이터셋-3.6.3 배치 처리](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter03/source-3-6-HandwritingNumberRecogExample.ipynb)
