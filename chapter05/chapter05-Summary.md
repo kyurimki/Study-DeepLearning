@@ -134,4 +134,5 @@
 - 이 문제에서 사과의 가격, 사과의 개수, 소비세 세 변수 각각이 최종 금액에 어떻게 영향을 주는가
 - = 사과 가격에 대한 지불 금액의 미분(= 2.2), 사과 개수에 대한 지불 금액의 미분(= 110), 소비세에 대한 지불 금액의 미분(= 200) (단, 이 예에서 소비세의 1 = 100%, 사과 가격 1 = 1원으로 단위가 다름)
 
-## 5.4 단순한 계층 구현하기
+## 5.4 단순한 계층 구현하기- 5.7 오차역전법 구현하기
+[5.4 단순한 계층 구현하기- 5.7 오차역전법 구현하기](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter05/source-5-4-SimpleLayerImplementation~5-7-BackpropagationImplementation.ipynb)
