@@ -147,3 +147,56 @@
 ![image](https://user-images.githubusercontent.com/61455647/116516814-08a89d80-a909-11eb-98e7-2404e7335759.png)
 
 ## 7.4 합성곱/풀링 계층 구현하기-7.5 CNN 구현하기
+[7.4 합성곱/풀링 계층 구현하기-7.5 CNN 구현하기](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter07/source-7-4-convolution%26poolingLayerImplementation~7-5-CNNImplementation.ipynb)
+
+
+## 7.6 CNN 시각화하기
+### 7.6.1 1번째 층의 가중치 시각화하기
+- 7.5에서 MNIST 데이터셋으로 CNN 학습을 했을 때, 1번째 층의 합성곱 계층의 가중치 형상은 (30, 1, 5, 5)
+	- 필터의 크기가 5*5, 채널이 1개 <=> 1채널의 회색조 이미지로 시각화할 수 있다.
+
+![image](https://user-images.githubusercontent.com/61455647/116552611-30f9c180-a934-11eb-837e-f2b463251e7b.png)
+
+- 가중치 원소는 실수이지만, 이미지에서 가장 작은 값 검은색(0), 가장 큰 값은 흰색(255)로 정규화하여 표시
+- 학습 전 필터: 무작위로 초기화되고 있어 흑백의 정도에 규칙성 X
+- 학습 후 필터: 규칙성이 있는 이미지
+	- ex. 흰색에서 검은색으로 점차 변화하는 필터
+	- 덩어리(blob) 진 필터
+- 규칙성이 있는 필터는 edge(색상이 바뀐 경계선)와 blob(국소적으로 덩어리 진 느낌)을 보고 있다.
+
+![image](https://user-images.githubusercontent.com/61455647/116553163-c7c67e00-a934-11eb-8c2f-be39a79051a8.png)
+
+- 학습된 필터 2개를 선택해 입력 이미지에 합성곱 처리를 했을 때, 필터1은 세로 edge에 반응, 필터2는 가로 edge에 반응
+- 합성곱 계층의 필터는 edge나 blob 등의 원시적인 정보를 추출할 수 있다. -> 원시적 정보가 계층에 전달되는 것이 CNN에서 일어나는 일
+
+### 7.6.2 층 깊이에 따른 추출 정보 변화
+
+![image](https://user-images.githubusercontent.com/61455647/116554509-3952fc00-a936-11eb-89a4-f874b60cc0bf.png)
+
+- AlexNet
+	- 8층의 CNN
+	- 합성곱 계층과 풀링 계층을 여러 겹 쌓고, 마지막으로 완전연결 계층을 거쳐 결과를 출력
+- 딥러닝은 합성곱 계층을 여러 겹 쌓으면, 층이 깊어지면서 더 복잡하고 추상화된 정보가 추출된다.
+	- 첫 층은 단순한 edge에 반응, 다음에는 텍스처에 반응, 더 복잡한 사물의 일부에 반응하도록 변화
+	- 층이 깊어지면서 뉴런이 반응하는 대상이 단순한 모양에서 고급 정보로 변화 -> 사물의 의미를 이해하도록 변화
+
+## 7.7 대표적인 CNN
+### 7.7.1 LeNet
+- 손글씨 숫자를 인식하는 네트워크로, 1998년 제안됨
+- 합성곱 계층과 풀링 계층(서브샘플링 계층) 반복, 마지막에 완전연결 계층을 거쳐 결과 출력
+
+![image](https://user-images.githubusercontent.com/61455647/116555116-f2b1d180-a936-11eb-9f43-3efac254a08e.png)
+
+- LeNet vs. 현재의 CNN
+	1. 활성화 함수: 시그모이드 함수 vs. ReLU 함수
+	2. 서브샘플링으로 중간 데이터의 크기를 줄임 vs. 최대 풀링
+
+### 7.7.2 AlexNet
+
+![image](https://user-images.githubusercontent.com/61455647/116555766-b59a0f00-a937-11eb-9d41-5b1bcecd799c.png)
+
+- 합성곱 계층과 풀링 계층을 거듭해 마지막에 완전연결 계층을 거쳐 결과를 출력
+- LeNet와의 차이점
+	- 활성화 함수로 ReLU 이용
+	- 국소적 정규화(LRN, Local Response Normalization)를 실시하는 계층 이용
+	- 드롭아웃 사용
