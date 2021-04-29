@@ -8,3 +8,6 @@ A Study Log of Deep Learning from Scratch(밑바닥부터 시작하는 딥러닝
 ### [Chapter03. Neural Networks](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter03/chapter03-Summary.md) (2021.04.08-10)
 ### [Chapter04. Neural Networks Training](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter04/chapter04-Summary.md) (2021.04.13-15)
 ### [Chapter05. Backpropagation](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter05/chapter05-Summary.md) (2021.04.21-22)
+
+### [Chapter07. CNN](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter07/chapter07-Summary.md) (2021.04.28-29)
+### [Chapter08. Deep Learning](https://github.com/kyurimki/Study-DeepLearningFromScratch/blob/main/chapter08/chapter08-Summary.md) (2021.04.29-30)
